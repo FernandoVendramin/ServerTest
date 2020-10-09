@@ -9,7 +9,7 @@ using System.Linq;
 namespace ServerTest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ClientController : Controller
     {
         private readonly ILogger<ClientController> _logger;
@@ -29,6 +29,17 @@ namespace ServerTest.Controllers
                 .Include(x => x.Addresses)
                 .Include(x => x.Phones)
                 .ToList();
+        }
+
+        [HttpGet("{id}")]
+        public Client GetById(int id)
+        {
+            return _context.Client
+                .Where(x => x.Id == id)
+                .Include(x => x.ClientType)
+                .Include(x => x.Addresses)
+                .Include(x => x.Phones)
+                .FirstOrDefault();
         }
     }
 }
