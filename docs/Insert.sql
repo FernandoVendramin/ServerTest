@@ -1,5 +1,8 @@
 
 Insert into ClientType (Name, EditionDateTime) Values('Tipo de Client 1', GETDATE());
+Insert into ClientType (Name, EditionDateTime) Values('Tipo de Client 2', GETDATE());
+Insert into ClientType (Name, EditionDateTime) Values('Tipo de Client 3', GETDATE());
+Insert into ClientType (Name, EditionDateTime) Values('Tipo de Client 4', GETDATE());
 
 Insert into Client (EditionDateTime, SocialReason, FantasyName, CPF, RG, BirthDataTime, ClientTypeId)
 Values(GETDATE(), 'Razão Social Cliente 1', 'Nome Fantasia Cliente 1', '111.111.111-11', '11.111.111-1', GETDATE(), 1);
