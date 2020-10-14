@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Server.UI.WithDevexpress.ApiProxy;
-using Server.UI.WithDevexpress.Models;
 using ServerTest.Models;
 
 namespace Server_UI_WithDevexpress.Controllers
@@ -23,7 +19,7 @@ namespace Server_UI_WithDevexpress.Controllers
 
         public IActionResult Index()
         {
-            return View(new HomeViewModel());
+            return View(new Client());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -34,6 +30,11 @@ namespace Server_UI_WithDevexpress.Controllers
         [HttpGet]
         public async Task<LoadResult> GetClientTypeAsync(DataSourceLoadOptions loadOptions) {
             return DataSourceLoader.Load(await clientTypeApiProxy.Get(), loadOptions);
+        }
+
+        [HttpPost]
+        public IActionResult Index(Client client) {
+            return View(client);
         }
     }
 }
