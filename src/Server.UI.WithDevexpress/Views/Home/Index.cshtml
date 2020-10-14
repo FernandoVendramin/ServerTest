@@ -1,0 +1,180 @@
+@using Server_UI_WithDevexpress.Models
+@model Server.UI.WithDevexpress.Models.HomeViewModel
+
+<div class="long-title"><h3>Client Register</h3></div>
+<div id="form-container">
+
+    @(Html.DevExtreme().Form<Server.UI.WithDevexpress.Models.HomeViewModel>()
+    .ID("form")
+    .LabelLocation(FormLabelLocation.Top)
+    .ColCount(2)
+    .Items(items =>
+    {
+    items.AddGroup()
+            .Caption("Personal Data")
+            .Items(groupItems =>
+            {
+                groupItems.AddSimpleFor(m => m.Client.ClientType).Editor(e => e
+                .SelectBox()
+                .DataSource(d => d.Mvc().Controller("Home").LoadAction("GetClientType").Key("Id"))
+                .SearchEnabled(true)
+                .DisplayExpr("Name"));
+
+                groupItems.AddSimpleFor(m => m.Client.SocialReason);
+
+                groupItems.AddSimpleFor(m => m.Client.FantasyName);
+
+                groupItems.AddSimpleFor(m => m.Client.BirthDataTime);
+            });
+
+    items.AddGroup()
+            .Caption("Documents")
+            .Items(innerGroupItems =>
+            {
+                innerGroupItems.AddSimpleFor(m => m.Client.CPF);
+                innerGroupItems.AddSimpleFor(m => m.Client.RG);
+            });
+
+    items.AddGroup()
+            .ColSpan(2)
+            .Caption("Extra Information")
+            .Items(groupItems =>
+            {
+                groupItems.AddTabbed()
+                    .TabPanelOptions(o =>
+                    {
+                        o.DeferRendering(false);
+                    })
+                    .Tabs(tabItems =>
+                    {
+                        tabItems.Add()
+                            .Title("Addresses")
+                            .Items(tabItem =>
+                            {
+                                tabItem.AddSimpleFor(m => m.ClientAddresses)
+                                    .Template(
+                                            @<text>
+                                                @(Html.DevExtreme().DataGrid<ServerTest.Models.ClientAddress>()
+                                                    .ShowBorders(true)
+                                                    .DataSource(Model.ClientAddresses)
+                                                    .Columns(columns => {
+                                                        columns.AddFor(m => m.Id);
+                                                        columns.AddFor(m => m.Address);
+                                                        columns.AddFor(m => m.Number);
+                                                        columns.AddFor(m => m.District);
+                                                        columns.AddFor(m => m.City);
+                                                        columns.AddFor(m => m.State);
+                                                        columns.AddFor(m => m.PostalCode);
+                                                    })
+                                                    .KeyExpr(nameof(ServerTest.Models.ClientAddress.Id))
+                                                    .Paging(p => p.PageSize(10))
+                                                    .FilterRow(f => f.Visible(true))
+                                                    .GroupPanel(p => p.Visible(true))
+                                                    .Grouping(g => g.AutoExpandAll(false))
+                                                    .Editing(config =>
+                                                        config
+                                                            .AllowDeleting(true)
+                                                            .AllowAdding(true)
+                                                            .AllowUpdating(true)
+                                                            .ConfirmDelete(true)
+                                                            .Mode(GridEditMode.Popup)
+                                                            .Popup(p => p
+                                                                .Title("Address Info")
+                                                                .ShowTitle(true)
+                                                                .Width(700)
+                                                                .Height(525)
+                                                                .Position(pos => pos
+                                                                    .My(HorizontalAlignment.Center, VerticalAlignment.Top)
+                                                                    .At(HorizontalAlignment.Center, VerticalAlignment.Top)
+                                                                    .Of(new JS("window"))
+                                                                )
+                                                            )
+                                                            .Form(f => f.Items(items =>
+                                                            {
+                                                                items.AddGroup()
+                                                                    .Caption("Principal")
+                                                                    .ColCount(2)
+                                                                    .ColSpan(2)
+                                                                    .Items(groupItems =>
+                                                                    {
+                                                                        groupItems.AddSimpleFor(m => m.Address);
+                                                                        groupItems.AddSimpleFor(m => m.Number);
+                                                                        groupItems.AddSimpleFor(m => m.District);
+                                                                    });
+
+                                                                items.AddGroup()
+                                                                    .Caption("Complement")
+                                                                    .ColCount(2)
+                                                                    .ColSpan(2)
+                                                                    .Items(groupItems =>
+                                                                    {
+                                                                        groupItems.AddSimpleFor(m => m.City);
+                                                                        groupItems.AddSimpleFor(m => m.State);
+                                                                        groupItems.AddSimpleFor(m => m.PostalCode);
+                                                                    });
+                                                            })))
+                                                    .RemoteOperations(false)
+                                                )
+                                            </text>
+                                    );
+                                });
+
+                            tabItems.Add()
+                                .Title("Phones")
+                                .Items(tabItem =>
+                                {
+                                    tabItem.AddSimpleFor(m => m.ClientPhones)
+                                        .Template(
+                                            @<text>
+                                                @(Html.DevExtreme().DataGrid<ServerTest.Models.ClientPhone>()
+                                                    .ShowBorders(true)
+                                                    .DataSource(Model.ClientPhones)
+                                                    .Columns(columns => {
+                                                        columns.AddFor(m => m.Id);
+                                                        columns.AddFor(m => m.PhoneNumber);
+                                                    })
+                                                    .KeyExpr(nameof(ServerTest.Models.ClientPhone.Id))
+                                                    .Paging(p => p.PageSize(10))
+                                                    .FilterRow(f => f.Visible(true))
+                                                    .GroupPanel(p => p.Visible(true))
+                                                    .Grouping(g => g.AutoExpandAll(false))
+                                                    .Editing(config =>                                                    
+                                                        config
+                                                            .AllowDeleting(true)
+                                                            .AllowAdding(true)
+                                                            .AllowUpdating(true)
+                                                            .ConfirmDelete(true)
+                                                            .Mode(GridEditMode.Popup)
+                                                            .Popup(p => p
+                                                                .Title("Phone Info")
+                                                                .ShowTitle(true)
+                                                                .Width(700)
+                                                                .Height(525)
+                                                                .Position(pos => pos
+                                                                    .My(HorizontalAlignment.Center, VerticalAlignment.Top)
+                                                                    .At(HorizontalAlignment.Center, VerticalAlignment.Top)
+                                                                    .Of(new JS("window"))
+                                                                )
+                                                            )
+                                                            .Form(f => f.Items(items =>
+                                                            {
+                                                                items.AddGroup()
+                                                                    .Caption("Principal")
+                                                                    .Items(groupItems =>
+                                                                    {
+                                                                        groupItems.AddSimpleFor(m => m.Id);
+                                                                        groupItems.AddSimpleFor(m => m.PhoneNumber);
+                                                                    });
+                                                            }))
+                                                    )
+                                                    .RemoteOperations(false)
+                                                )
+                                            </text>
+                                        );
+                                });
+                        });
+                });
+    })
+    .FormData(Model)
+)
+</div>
