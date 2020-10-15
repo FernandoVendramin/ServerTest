@@ -28,7 +28,7 @@ namespace Server_UI_WithDevexpress
 
             services.AddHttpContextAccessor();
 
-            Uri apiUri = new Uri(Configuration["ApiUri"]);
+            var apiUri = new Uri(Configuration["ApiUri"]);
 
             _ = services.AddHttpClient(
                 nameof(IClientApiProxy),

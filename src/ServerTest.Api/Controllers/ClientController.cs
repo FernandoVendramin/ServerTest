@@ -59,10 +59,10 @@ namespace ServerTest.Controllers
         [Route("GenerateData")]
         public string GenerateData()
         {
-            if (_context.Client.Count() < 50000)
+            if (_context.Client.Count() < 100000)
             {
                 int j = 0;
-                for (int i = 0; i < 50000; i++)
+                for (int i = 0; i < 100000; i++)
                 {
                     var address = new Faker<ClientAddress>()
                         .RuleFor(x => x.EditionDateTime, DateTime.Now)
