@@ -1,0 +1,102 @@
+<h1 class="pt-5 pb-3">{{'clientList' | translate}}</h1>
+<form class="form-horizontal" [formGroup]="form">
+    <div class="row pb-5">
+        <div class="col-sm-4">
+            <label class="control-label">{{'numberOfReccords' | translate}} :</label>
+            <input type="number" formControlName="take" class="form-control" value="50">
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-info" style="margin-top: 27px;" (click)="searchClient()">{{'search' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <dx-data-grid
+                id="gridContainer"
+                [dataSource]="client"
+                [showBorders]="true"
+                [allowColumnReordering]="true"
+                [allowColumnResizing]="true"
+                [masterDetail]="{ enabled: true, template: 'detail' }">
+
+                <dxo-filter-row 
+                    [visible]="true" 
+                    [applyFilter]="client">
+                </dxo-filter-row>
+
+                <dxo-header-filter 
+                    [visible]="true">
+                </dxo-header-filter>
+
+                <dxo-search-panel 
+                    [visible]="true" 
+                    [width]="240" 
+                    placeholder="{{'search' | translate}}...">
+                </dxo-search-panel>
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager 
+                    [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[10, 25, 50]"
+                    [showInfo]="true">
+                </dxo-pager>
+
+                <dxo-group-panel [visible]="true" [emptyPanelText]="'groupEmptyPanelText' | translate" ></dxo-group-panel>
+                <dxo-editing 
+                    mode="popup"
+                    [allowUpdating]="true"
+                    [allowDeleting]="true"
+                    [allowAdding]="true">
+                    <dxo-popup
+                        title="Endereço"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525">
+                    </dxo-popup>
+                </dxo-editing>
+
+                <dxi-column dataField="socialReason" caption="{{'socialReason' | translate}}">
+                    <dxi-validation-rule type="required" message="Endereço é obrigatório"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="fantasyName" caption="{{'fantasyName' | translate}}">
+                    <dxi-validation-rule type="required" message="Nome Fantasia é obrigatório"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="cpf" caption="{{'cpf' | translate}}">
+                    <dxi-validation-rule type="required" message="CPF é obrigatório"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="rg" caption="{{'rg' | translate}}">
+                    <dxi-validation-rule type="required" message="RG é obrigatório"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="birthDataTime" dataType="date" caption="{{'birthDataTime' | translate}}">
+                    <dxi-validation-rule type="required" message="Data de Nascimento é obrigatória"></dxi-validation-rule>
+                </dxi-column>
+
+
+                <div *dxTemplate="let clientData of 'detail'">
+                    <div class="master-detail-caption">Endereços:</div>
+                    <dx-data-grid 
+                        [dataSource]="clientData.data.addresses"
+                        [showBorders]="true"
+                        [columnAutoWidth]="true">
+                          <dxi-column dataField="address" caption="Endereço"></dxi-column>
+                          <dxi-column dataField="number" caption="Número"></dxi-column>
+                          <dxi-column dataField="district" caption="Bairro"></dxi-column>
+                          <dxi-column dataField="city" caption="Cidade"></dxi-column>
+                          <dxi-column dataField="state" caption="Estado"></dxi-column>
+                          <dxi-column dataField="postalCode" caption="CEP"></dxi-column>
+                          <dxi-column dataField="country" caption="País"></dxi-column>
+                    </dx-data-grid>
+
+                    <div class="master-detail-caption pt-3">Telefones:</div>
+                    <dx-data-grid 
+                        [dataSource]="clientData.data.phones"
+                        [showBorders]="true"
+                        [columnAutoWidth]="true">
+                          <dxi-column dataField="phoneNumber" caption="Numero do Telefone"></dxi-column>
+                    </dx-data-grid>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</form>

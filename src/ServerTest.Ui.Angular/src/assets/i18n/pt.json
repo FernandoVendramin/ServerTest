@@ -1,0 +1,17 @@
+{
+	"appTitle": "Título da Aplicação",
+	"homeTitle": "Projeto teste Angular.",
+	"numberOfReccords": "Número de Registros",
+	"clientList": "Lista de Clientes",
+	"search": "Buscar",
+	"socialReason": "Razão Social",
+	"fantasyName": "Nome Fantasia",
+	"rg": "RG",
+	"cpf": "CPF",
+	"birthDataTime": "Data de Nascimento",
+	"home": "Início",
+	"clientform": "Form de Clientes",
+	"clientformdx": "Form de Clientes (Dev Express)",
+	"clientlist": "Lista de Clientes",
+	"groupEmptyPanelText": "Arraste um cabeçalho de coluna aqui para agrupar"
+}

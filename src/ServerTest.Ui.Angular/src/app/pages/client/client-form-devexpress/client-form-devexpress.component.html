@@ -1,0 +1,133 @@
+<h1 class="pt-5">Cadastro de Clientes (DevExpress)</h1>
+<h3 class="pt-3">Dados Principais</h3>
+
+<form (submit)="onSubmit()">
+  <dx-form id="form"
+    [formData]="client"
+    [alignItemLabels]="true"
+    labelLocation="top"
+    class="pt-3">
+    
+    <dxi-item itemType="group" cssClass="first-group" [colCount]="12">
+      <dxi-item itemType="group" [colSpan]="6">
+          <dxi-item dataField="socialReason" [label]="{text: 'Razão Social'}">
+            <dxi-validation-rule type="required" message="Razão Social é obrigatória"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group" [colSpan]="6">
+        <dxi-item dataField="fantasyName" [label]="{text: 'Nome Fantasia'}">
+          <dxi-validation-rule type="required" message="Nome Fantasia é obrigatório"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group" [colSpan]="3">
+        <dxi-item dataField="cpf" editorType="dxTextBox" [editorOptions]="{ width: '100%'}" [label]="{text: 'CPF'}">
+          <dxi-validation-rule type="required" message="CPF é obrigatório"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item itemType="group" [colSpan]="3">
+        <dxi-item dataField="rg" editorType="dxTextBox" [editorOptions]="{ width: '100%'}" [label]="{text: 'RG'}">
+          <dxi-validation-rule type="required" message="RG é obrigatório"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item itemType="group" [colSpan]="3">
+        <dxi-item dataField="birthDataTime" editorType="dxDateBox" [editorOptions]="{ width: '100%'}" [label]="{text: 'Data de Nascimento'}">
+          <dxi-validation-rule type="required" message="Data de Nascimento é obrigatória"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item itemType="group" [colSpan]="3">
+        <dxi-item dataField="clientTypeId" editorType="dxSelectBox" 
+          [editorOptions]="{ items: clientTypes, searchEnabled: true, value: client?.clientTypeId, displayExpr: 'name', valueExpr: 'id' }" 
+          [label]="{text: 'Tipo do Cliente'}">
+          <dxi-validation-rule type="required" message="Tipo do Cliente é obrigatório"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+    </dxi-item>
+
+    <dxi-item itemType="group" [colCount]="12">
+      <h3 class="pt-5">Endereços</h3>
+      <dx-data-grid
+          id="gridContainer"
+          [dataSource]="client?.addresses"
+          [showBorders]="true"
+          (onRowInserted)="onRowInsertedAddress($event)"
+          (onRowUpdated)="onRowUpdatedAddress($event)"
+          (onRowRemoved)="onRowRemovedAddress($event)">
+
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-editing 
+            mode="popup"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="true">
+            <dxo-popup
+                  title="Endereço"
+                  [showTitle]="true"
+                  [width]="700"
+                  [height]="525">
+              </dxo-popup>
+          </dxo-editing>
+
+          <dxi-column dataField="address" caption="Endereço">
+            <dxi-validation-rule type="required" message="Endereço é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column dataField="number" caption="Número">
+            <dxi-validation-rule type="required" message="Número é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column dataField="district" caption="Bairro">
+            <dxi-validation-rule type="required" message="Bairro é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column dataField="city" caption="Cidade">
+            <dxi-validation-rule type="required" message="Cidade é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column dataField="state" caption="Estado">
+            <dxi-validation-rule type="required" message="Estado é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column dataField="postalCode" caption="CEP">
+            <dxi-validation-rule type="required" message="CEP é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column dataField="country" caption="País">
+            <dxi-validation-rule type="required" message="País é obrigatório"></dxi-validation-rule>
+          </dxi-column>
+      </dx-data-grid>
+    </dxi-item>
+
+    <dxi-item itemType="group" [colCount]="12">
+      <h3 class="pt-5">Telefones</h3>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <dx-data-grid
+            id="gridContainer"
+            [dataSource]="client?.phones"
+            [showBorders]="true">
+
+            <dxo-editing 
+              mode="row"
+              [allowUpdating]="true"
+              [allowDeleting]="true"
+              [allowAdding]="true">
+            </dxo-editing>
+
+            <dxi-column dataField="phoneNumber" caption="Número do Telefone">
+              <dxi-validation-rule type="required" message="Número do Telefone é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+    </dxi-item>
+  </dx-form>
+
+  <!-- <button type="submit" class="btn btn-success mt-5">Salvar</button> -->
+
+  <div class="dx-fieldset">
+    <dx-validation-summary id="summary"></dx-validation-summary>
+
+    <dx-button 
+        id="button"
+        text="Salvar"
+        type="success"  
+        [useSubmitBehavior]="true">
+    </dx-button>
+  </div>
+</form>

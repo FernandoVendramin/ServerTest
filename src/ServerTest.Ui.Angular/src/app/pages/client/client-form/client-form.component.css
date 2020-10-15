@@ -1,0 +1,19 @@
+.formBase {
+    background-color: #ECECEC;
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px lightgray;
+}
+
+.hidden {
+    display:none;
+}
+
+.control-label.required:after { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 5px;
+    top:0px;
+  }

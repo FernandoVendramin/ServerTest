@@ -1,0 +1,132 @@
+<h1 class="pt-5">Cadastro de Clientes</h1>
+<div class="pb-5">
+    <form class="form-horizontal pt-3" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+
+      <h3 class="pt-3">Dados Principais</h3>
+      <div class="col-sm-12 formBase">
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label for="socialReason" class="control-label required">Razão Social</label>
+            <input type="text" class="form-control" [ngClass]="applyErrorClass(clientForm.get('socialReason'))" id="socialReasonInput" formControlName="socialReason">
+            <div class="invalid-feedback"> Campo obrigatório. </div>
+            <div class="invalid-feedback"> O campo deve conter no mínimo 3 caracteres. </div>         
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="fantasyName" class="control-label required">Nome Fantasia</label>
+            <input type="text" class="form-control" id="fantasyNameInput" formControlName="fantasyName" [ngClass]="applyErrorClass(clientForm.get('fantasyName'))">
+            <div class="invalid-feedback"> Campo obrigatório. </div>
+            <div class="invalid-feedback"> O campo deve conter no mínimo 3 caracteres. </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="form-group col-sm-3">
+            <label for="cpf" class="control-label required">CPF</label>
+            <input type="text" class="form-control" id="cpfInput" formControlName="cpf" [ngClass]="applyErrorClass(clientForm.get('cpf'))">
+            <div class="invalid-feedback"> Campo obrigatório. </div>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="rg" class="control-label required">RG</label>
+            <input type="text" class="form-control" id="rgInput" formControlName="rg" [ngClass]="applyErrorClass(clientForm.get('rg'))">
+            <div class="invalid-feedback"> Campo obrigatório. </div>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="birthDataTime" class="control-label required">Data de Nascimento</label>
+            <input type="datetime-local" class="form-control" id="birthDataTimeInput" formControlName="birthDataTime" [ngClass]="applyErrorClass(clientForm.get('birthDataTime'))">
+            <div class="invalid-feedback"> Campo obrigatório. </div>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="clientType" class="control-label required">Tipo do Cliente</label>
+            <select class="form-control" id="clientTypeSelect" formControlName="clientTypeId">
+              <option [ngValue]="null" disabled>Selecione o Tipo do Cliente</option>
+              <option *ngFor="let clientType of clientTypes" [value]="clientType.id">
+                {{clientType.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+     
+      <h3 class="pt-3">Endereços</h3>
+      <div class="mt-3">
+        <div *ngFor="let address of addressFormArray.controls; let i = index;">
+          <div [formGroup]="address" class="col-sm-12 formBase" id="addressForm{{i}}">
+              <div class="row">
+                <div class="form-group col-sm-2">
+                  <label for="postalCode" class="control-label required">CEP</label>
+                  <input type="text" class="form-control" id="postalCodeInput" formControlName="postalCode" [ngClass]="applyErrorClass(address.get('postalCode'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <label for="address" class="control-label required">Endereço</label>
+                  <input type="text" class="form-control" id="addressInput" formControlName="address" [ngClass]="applyErrorClass(address.get('address'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label for="number" class="control-label required">Número</label>
+                  <input type="text" class="form-control" id="numberInput" formControlName="number" [ngClass]="applyErrorClass(address.get('number'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="form-group col-sm-3">
+                  <label for="district" class="control-label required">Bairro</label>
+                  <input type="text" class="form-control" id="districtInput" formControlName="district" [ngClass]="applyErrorClass(address.get('district'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+                <div class="form-group col-sm-3">
+                  <label for="city" class="control-label required">Cidade</label>
+                  <input type="text" class="form-control" id="cityInput" formControlName="city" [ngClass]="applyErrorClass(address.get('city'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+                <div class="form-group col-sm-3">
+                  <label for="state" class="control-label required">Estado</label>
+                  <input type="text" class="form-control" id="stateInput" formControlName="state" [ngClass]="applyErrorClass(address.get('state'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label for="country" class="control-label required">País</label>
+                  <input type="text" class="form-control" id="countryInput" formControlName="country" [ngClass]="applyErrorClass(address.get('country'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                </div>
+                <div class="form-group col-sm-1 text-right pt-4">
+                  <button class="btn btn-danger" type="button" (click)="removeAddress(i)"> <fa-icon [icon]="faTrash"></fa-icon> </button>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary mt-5" type="button" (click)="addAddress()"> Adicionar Endereço </button>
+      </div>
+
+
+      <h3 class="pt-3">Telefones</h3>
+      <div class="mt-3 row">
+        <div *ngFor="let phone of phoneFormArray.controls; let i = index;" class="col-sm-4" id="phoneForm{{i}}">
+          <div [formGroup]="phone" class="col-sm-12 formBase">
+              <div class="row pr-2">
+                <div class="form-group col-sm-10">
+                  <label for="phoneNumber" class="control-label required">Número do Telefone</label>
+                  <input type="text" class="form-control" id="phoneNumberInput" formControlName="phoneNumber" [ngClass]="applyErrorClass(phone.get('phoneNumber'))">
+                  <div class="invalid-feedback"> Campo obrigatório. </div>
+                  <div class="invalid-feedback"> O campo deve conter no mínimo 8 caracteres. </div>
+                </div>
+                <div class="form-group col-sm-2 text-right pt-4">
+                  <button class="btn btn-danger" type="button" (click)="removePhone(i)"> <fa-icon [icon]="faTrash"></fa-icon> </button>
+                </div>
+              </div>     
+          </div>
+        </div>
+        
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <button class="btn btn-primary mt-5" type="button" (click)="addPhone()"> Adicionar Telefone </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success mt-5">Salvar</button>
+    </form>
+    
+  </div>

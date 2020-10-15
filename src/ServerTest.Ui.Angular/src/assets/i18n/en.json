@@ -1,0 +1,17 @@
+{
+	"appTitle": "Application Title",
+	"homeTitle": "Test project Angular.",
+	"numberOfReccords": "Number of Reccords",
+	"clientList": "Client List",
+	"search": "Search",
+	"socialReason": "Social Reason",
+	"fantasyName": "Fantasy Name",
+	"rg": "RG",
+	"cpf": "CPF",
+	"birthDataTime": "Birth Data",
+	"home": "Home",
+	"clientform": "Client Form",
+	"clientformdx": "Client Form (Dev Express)",
+	"clientlist": "Client List",
+	"groupEmptyPanelText": "Drag a column header here to group by that column"
+}

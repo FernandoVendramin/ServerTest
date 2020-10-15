@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+  <a class="navbar-brand" routerLink="home">POC Angular</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-item nav-link active" routerLink="home">{{'home' | translate}} <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" routerLink="clientform">{{'clientform' | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" routerLink="clientformdx">{{'clientformdx' | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" routerLink="clientlist">{{'clientlist' | translate}}</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <span class="form-inline">
+        <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+          <option *ngFor="let language of translateService.getLangs()" [value]="language"
+            [selected]="language === translateService.currentLang">
+            {{ language }}
+          </option>
+        </select>
+      </span>
+    </form>
+  </div>
+</nav>
+
+<div class="container mt-3 pt-3">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,69 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient, HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { DxButtonModule } from 'devextreme-angular/ui/button';
+import { DxFormModule } from 'devextreme-angular/ui/form';
+import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
+import { DxTextAreaModule } from 'devextreme-angular/ui/text-area';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DxDataGridModule, DxValidationSummaryModule } from 'devextreme-angular';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ClientFormComponent } from './pages/client/client-form/client-form.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ClientListComponent } from './pages/client/client-list/client-list.component';
+import { ClientService } from './services/client.service';
+import { ClientFormDevexpressComponent } from './pages/client/client-form-devexpress/client-form-devexpress.component';
+import { ClientTypeService } from './services/clienttype.service';
+
+export function TranslationLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ClientFormComponent,
+    HomeComponent,
+    ClientListComponent,
+    ClientFormDevexpressComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientJsonpModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {provide: TranslateLoader, useFactory: TranslationLoaderFactory, deps: [HttpClient]}
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
+    DxButtonModule,
+    DxTextAreaModule,
+    DxTextBoxModule,
+    DxDateBoxModule,
+    DxFormModule,
+    DxValidationSummaryModule,
+    DxDataGridModule
+  ],
+  providers: [
+    ClientService, 
+    ClientTypeService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
