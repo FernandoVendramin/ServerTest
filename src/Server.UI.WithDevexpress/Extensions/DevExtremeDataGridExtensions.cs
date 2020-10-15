@@ -35,7 +35,7 @@ namespace Server.UI.WithDevexpress.Extensions
         public static DataGridBuilder<T> OnRowRemovingWithChangeTracking<T>(this DataGridBuilder<T> dataGridBuilder, string jsBlock = "")
         {
             var script = new StringBuilder();
-            script.Append("function(e) { if(e.data.StateChange !== " + (int)StateChange.Inserted + ") { e.component.getRowElement(e.component.getRowIndexByKey(e.key)).addClass(\"dx-row-removed\"); e.data.StateChange = " + (int)StateChange.Deleted + "; e.cancel = true; e.component.refresh(); }");
+            script.Append("function(e) { if(e.data.StateChange !== " + (int)StateChange.Inserted + ") { e.data.StateChange = " + (int)StateChange.Deleted + "; e.cancel = true; e.component.refresh(); }");
             script.Append(jsBlock);
             script.Append("}");
 
