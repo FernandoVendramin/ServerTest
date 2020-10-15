@@ -1,4 +1,7 @@
 @using Server_UI_WithDevexpress.Models
+@using Server.UI.WithDevexpress
+@using Server.UI.WithDevexpress.Extensions
+@using ServerTest.Utils
 @model ServerTest.Models.Client
 
 <script type="text/javascript">
@@ -47,7 +50,7 @@
 
 <div class="long-title"><h3>Client Register</h3></div>
 <div id="form-container">
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {id = "manageClient"}))
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "manageClient" }))
     {
 
         @(Html.DevExtreme().Form<ServerTest.Models.Client>()
@@ -140,13 +143,17 @@
                 .Paging(p => p.PageSize(10))
                 .FilterRow(f => f.Visible(true))
                 .GroupPanel(p => p.Visible(true))
+                .OnRowInsertingWithChangeTracking()
+                .OnRowUpdatingWithChangeTracking()
+                .OnRowRemovingWithChangeTracking()
                 .Grouping(g => g.AutoExpandAll(false))
                 .Editing(config =>
                     config
-                        .AllowDeleting(true)
                         .AllowAdding(true)
-                        .AllowUpdating(true)
+                        .AllowUpdating(new JS("function(e) { return (e.row.data.StateChange != " + (int)StateChange.Deleted + "); }"))
+                        .AllowDeleting(new JS("function(e) { return (e.row.data.StateChange != " + (int)StateChange.Deleted + "); }"))
                         .ConfirmDelete(true)
+                        .UseIcons(true)
                         .Mode(GridEditMode.Popup)
                         .Popup(p => p
                             .Title("Address Info")
@@ -182,10 +189,10 @@
                                     groupItems.AddSimpleFor(m => m.State);
                                     groupItems.AddSimpleFor(m => m.PostalCode);
                                 });
-                         })))
+                        })))
             )
-        } 
-        
+        }
+
         @using (Html.DevExtreme().NamedTemplate("templateGridPhones"))
         {
             @(Html.DevExtreme().DataGrid<ServerTest.Models.ClientPhone>()
@@ -197,16 +204,20 @@
                     columns.AddFor(m => m.Id);
                     columns.AddFor(m => m.PhoneNumber);
                 })
+                .OnRowInsertingWithChangeTracking()
+                .OnRowUpdatingWithChangeTracking()
+                .OnRowRemovingWithChangeTracking()
                 .Paging(p => p.PageSize(10))
                 .FilterRow(f => f.Visible(true))
                 .GroupPanel(p => p.Visible(true))
                 .Grouping(g => g.AutoExpandAll(false))
                 .Editing(config =>
                     config
-                        .AllowDeleting(true)
                         .AllowAdding(true)
-                        .AllowUpdating(true)
+                        .AllowUpdating(new JS("function(e) { return (e.row.data.StateChange != " + (int)StateChange.Deleted + "); }"))
+                        .AllowDeleting(new JS("function(e) { return (e.row.data.StateChange != " + (int)StateChange.Deleted + "); }"))
                         .ConfirmDelete(true)
+                        .UseIcons(true)
                         .Mode(GridEditMode.Popup)
                         .Popup(p => p
                             .Title("Phone Info")

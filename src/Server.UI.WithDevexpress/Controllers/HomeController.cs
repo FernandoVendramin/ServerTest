@@ -5,6 +5,7 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Server.UI.WithDevexpress.ApiProxy;
 using ServerTest.Models;
+using ServerTest.Utils;
 
 namespace Server_UI_WithDevexpress.Controllers
 {
@@ -33,7 +34,26 @@ namespace Server_UI_WithDevexpress.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Client client) {
+        public IActionResult Index(Client client)
+        {
+            client.StateChange = StateChange.Unchanged;
+
+            if (client.Addresses != null)
+            {
+                foreach (var clientAddress in client.Addresses)
+                {
+                    clientAddress.StateChange = StateChange.Unchanged;
+                }
+            }
+
+            if (client.Phones != null)
+            {
+                foreach (var clientPhone in client.Phones)
+                {
+                    clientPhone.StateChange = StateChange.Unchanged;
+                }
+            }
+
             return View(client);
         }
     }
