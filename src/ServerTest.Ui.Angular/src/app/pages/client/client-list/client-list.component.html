@@ -38,7 +38,7 @@
                 <dxo-paging [pageSize]="10"></dxo-paging>
                 <dxo-pager 
                     [showPageSizeSelector]="true"
-                    [allowedPageSizes]="[10, 25, 50]"
+                    [allowedPageSizes]="[10, 25, 50, 100, 500, 1000]"
                     [showInfo]="true">
                 </dxo-pager>
 
@@ -72,6 +72,14 @@
                     <dxi-validation-rule type="required" message="Data de Nascimento é obrigatória"></dxi-validation-rule>
                 </dxi-column>
 
+                <dxi-column dataField="clientTypeId" caption="{{'clientType' | translate}}">
+                    <dxo-lookup
+                        [dataSource]="clientTypes"
+                        valueExpr="id"
+                        displayExpr="name">
+                    </dxo-lookup>
+                    <dxi-validation-rule type="required" message="Tipo do cliente é obrigatório"></dxi-validation-rule>
+                </dxi-column>
 
                 <div *dxTemplate="let clientData of 'detail'">
                     <div class="master-detail-caption">Endereços:</div>

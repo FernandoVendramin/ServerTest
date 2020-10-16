@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Client } from 'src/app/models/client';
 import { ClientAddress } from 'src/app/models/clientaddress';
@@ -14,6 +16,8 @@ import { StateChange } from 'src/app/utils/statechange';
 })
 export class ClientFormDevexpressComponent implements OnInit {
 
+  faPlus = faPlus;
+
   client: Client = null;
   clientTypes: ClientType[] = null;
   clientAddressesDeleted: ClientAddress[] = [];
@@ -22,8 +26,13 @@ export class ClientFormDevexpressComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private clientTypeService: ClientTypeService,
-    private toastrService: ToastrService
-    ) { }
+    private toastrService: ToastrService,
+    config: NgbModalConfig, 
+    private modalService: NgbModal
+    ) {
+      config.backdrop = 'static';
+      config.keyboard = false;
+    }
 
   ngOnInit(): void {
     this.id = 1;
@@ -61,6 +70,18 @@ export class ClientFormDevexpressComponent implements OnInit {
 
   onRowUpdatedAddress(e) {
     e.data.stateChange = StateChange.Updated;
+  }
+
+  onEditPhone(e) {
+    console.log(e.data);
+  }
+
+  onInsertPhone(e) {
+    console.log(e.data);
+  }
+
+  openPhoneModal(content) {
+    this.modalService.open(content, { centered: true });
   }
 
   onRowRemovedAddress(e) {
@@ -105,5 +126,4 @@ export class ClientFormDevexpressComponent implements OnInit {
         }
       });
   }
-
 }

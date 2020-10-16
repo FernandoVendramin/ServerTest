@@ -13,5 +13,6 @@
 	"clientform": "Client Form",
 	"clientformdx": "Client Form (Dev Express)",
 	"clientlist": "Client List",
-	"groupEmptyPanelText": "Drag a column header here to group by that column"
+	"groupEmptyPanelText": "Drag a column header here to group by that column",
+	"clientType": "Client Type"
 }
