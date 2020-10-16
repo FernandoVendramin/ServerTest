@@ -72,6 +72,7 @@
             <dxo-group-panel [visible]="true"></dxo-group-panel>
             <dxo-editing 
               mode="popup"
+              [useIcons]="true"
               [allowUpdating]="true"
               [allowDeleting]="true"
               [allowAdding]="true">
@@ -112,47 +113,57 @@
           <dxi-item class="pb-3">
             <ng-template #content let-c="close" let-d="dismiss">
               <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+                <h4 class="modal-title" id="modal-basic-title">Telefone</h4>
                 <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                <p>Hello, World!</p>
+              <div class="modal-body" [formGroup]="clientPhoneForm">
+                  <div class="row pr-2">
+                    <div class="form-group col-sm-10">
+                      <label for="phoneNumber" class="control-label required">Número do Telefone</label>
+                      <input type="text" ngbAutofocus class="form-control" id="phoneNumberInput" formControlName="phoneNumber">
+                    </div>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="button" ngbAutofocus class="btn btn-outline-dark">Save</button>
+                <button type="button" class="btn btn-success" (click)="savePhoneModal()">Salvar</button>
               </div>
             </ng-template>
             
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-md btn-outline-primary" (click)="openPhoneModal(content)"><fa-icon [icon]="faPlus"></fa-icon></button>
+              <div class="p-1">
+                <button class="btn btn-md btn-outline-primary" (click)="openPhoneModal(content, null)"><fa-icon [icon]="faPlus"></fa-icon></button>
+              </div>
+              <div class="p-1">
+                <button class="btn btn-md btn-outline-primary" *ngIf="gridPhone?.selectedRowKeys?.length > 0" (click)="openPhoneModal(content, gridPhone?.instance?.getSelectedRowsData()[0])"><fa-icon [icon]="faEdit"></fa-icon></button>  
+              </div>
             </div>
           </dxi-item>
 
           <dx-data-grid
+            #gridPhone
             id="gridContainer"
             [dataSource]="client?.phones"
             (onEditingStart)="onEditPhone($event)"
             (onRowInserting)="onInsertPhone($event)"
-            [showBorders]="true">
+            [showBorders]="true"
+            [hoverStateEnabled]="true"
+            [selectedRowKeys]="[]">
 
+            <dxo-selection mode="single"></dxo-selection>
+            
             <dxo-editing 
               mode="popup"
-              [allowUpdating]="true"
+              [allowUpdating]="false"
               [allowDeleting]="true"
+              [useIcons]="true"
               [allowAdding]="false">
               <dxo-popup
-                title="Custom Title 2 - Telefone"
+                title="Telefone"
                 [showTitle]="true"
                 [width]="700"
-                [height]="300"
-                contentTemplate="phoneTemplate">
-                <div *dxTemplate="let data of 'phoneTemplate'">
-                  <h3>Custom Content - Telefone</h3>
-                  <label for="phoneNumber" class="control-label required">Número do Telefone</label>
-                  <input type="text" class="form-control" id="phoneNumberInput" formControlName="phoneNumber">
-                </div>
+                [height]="300">
               </dxo-popup>             
             </dxo-editing>
 
