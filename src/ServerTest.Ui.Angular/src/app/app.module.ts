@@ -38,7 +38,11 @@ export function TranslationLoaderFactory(http: HttpClient) {
     HttpClientJsonpModule,
     HttpClientModule,
     TranslateModule.forRoot({
-      loader: {provide: TranslateLoader, useFactory: TranslationLoaderFactory, deps: [HttpClient]}
+      loader: {
+        provide: TranslateLoader, 
+        useFactory: TranslationLoaderFactory, 
+        deps: [HttpClient]
+      }
     }),
     FormsModule,
     ReactiveFormsModule,
@@ -54,6 +58,9 @@ export function TranslationLoaderFactory(http: HttpClient) {
     DxValidationSummaryModule,
     DxDataGridModule,
     DxTabPanelModule
+  ],
+  exports: [
+    TranslateModule
   ],
   providers: [
     ClientService, 

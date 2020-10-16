@@ -11,17 +11,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientlistComponent } from './clientlist.component';
 import { ClientlistRoutingModule } from './clientlist-routing.module';
-import { HttpClient } from '@angular/common/http';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-export function TranslationLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ClientlistComponent],
   imports: [
+    TranslateModule,
     CommonModule,
     ClientlistRoutingModule,
     FormsModule,
@@ -35,10 +30,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
     DxFormModule,
     DxValidationSummaryModule,
     DxDataGridModule,
-    DxTabPanelModule,
-    TranslateModule.forRoot({
-      loader: {provide: TranslateLoader, useFactory: TranslationLoaderFactory, deps: [HttpClient]}
-    }),
+    DxTabPanelModule
   ]
 })
 export class ClientlistModule { }

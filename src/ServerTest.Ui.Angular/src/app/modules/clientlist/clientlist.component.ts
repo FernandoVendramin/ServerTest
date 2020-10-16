@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Client } from 'src/app/models/client';
 import { ClientType } from 'src/app/models/clienttype';
 import { ClientService } from 'src/app/services/client.service';
@@ -19,7 +20,8 @@ export class ClientlistComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private clientTypeService: ClientTypeService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.loadClient(50);
