@@ -6,11 +6,11 @@ import { ClientService } from 'src/app/services/client.service';
 import { ClientTypeService } from 'src/app/services/clienttype.service';
 
 @Component({
-  selector: 'app-client-list',
-  templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.css']
+  selector: 'app-clientlist',
+  templateUrl: './clientlist.component.html',
+  styleUrls: ['./clientlist.component.css']
 })
-export class ClientListComponent implements OnInit {
+export class ClientlistComponent implements OnInit {
 
   client: Client[] = [];
   clientTypes: ClientType[] = null;

@@ -12,11 +12,11 @@ import { ClientTypeService } from 'src/app/services/clienttype.service';
 import { StateChange } from 'src/app/utils/statechange';
 
 @Component({
-  selector: 'app-client-form-devexpress',
-  templateUrl: './client-form-devexpress.component.html',
-  styleUrls: ['./client-form-devexpress.component.css']
+  selector: 'app-clientformdx',
+  templateUrl: './clientformdx.component.html',
+  styleUrls: ['./clientformdx.component.css']
 })
-export class ClientFormDevexpressComponent implements OnInit {
+export class ClientformdxComponent implements OnInit {
 
   faPlus = faPlus;
   faEdit = faEdit;

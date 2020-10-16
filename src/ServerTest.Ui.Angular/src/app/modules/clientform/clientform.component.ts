@@ -11,9 +11,9 @@ import { ClientTypeService } from 'src/app/services/clienttype.service';
 import { StateChange } from 'src/app/utils/statechange';
 
 @Component({
-  selector: 'app-client-form',
-  templateUrl: './client-form.component.html',
-  styleUrls: ['./client-form.component.css']
+  selector: 'app-clientform',
+  templateUrl: './clientform.component.html',
+  styleUrls: ['./clientform.component.css']
 })
 export class ClientFormComponent implements OnInit {
   

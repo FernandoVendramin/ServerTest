@@ -16,14 +16,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientFormComponent } from './pages/client/client-form/client-form.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ClientListComponent } from './pages/client/client-list/client-list.component';
 import { ClientService } from './services/client.service';
-import { ClientFormDevexpressComponent } from './pages/client/client-form-devexpress/client-form-devexpress.component';
 import { ClientTypeService } from './services/clienttype.service';
+import { AppRoutingModule } from './app-routing.module';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -32,10 +29,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ClientFormComponent,
     HomeComponent,
-    ClientListComponent,
-    ClientFormDevexpressComponent,
   ],
   imports: [
     BrowserModule,
