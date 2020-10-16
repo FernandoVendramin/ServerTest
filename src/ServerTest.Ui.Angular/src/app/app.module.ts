@@ -9,7 +9,7 @@ import { DxTextAreaModule } from 'devextreme-angular/ui/text-area';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DxDataGridModule, DxValidationSummaryModule } from 'devextreme-angular';
+import { DxDataGridModule, DxTabPanelModule, DxValidationSummaryModule } from 'devextreme-angular';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -58,7 +58,8 @@ export function TranslationLoaderFactory(http: HttpClient) {
     DxDateBoxModule,
     DxFormModule,
     DxValidationSummaryModule,
-    DxDataGridModule
+    DxDataGridModule,
+    DxTabPanelModule
   ],
   providers: [
     ClientService, 

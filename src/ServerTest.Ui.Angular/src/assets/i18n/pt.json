@@ -13,5 +13,6 @@
 	"clientform": "Form de Clientes",
 	"clientformdx": "Form de Clientes (Dev Express)",
 	"clientlist": "Lista de Clientes",
-	"groupEmptyPanelText": "Arraste um cabeçalho de coluna aqui para agrupar"
+	"groupEmptyPanelText": "Arraste um cabeçalho de coluna aqui para agrupar",
+	"clientType": "Tipo do Cliente"
 }

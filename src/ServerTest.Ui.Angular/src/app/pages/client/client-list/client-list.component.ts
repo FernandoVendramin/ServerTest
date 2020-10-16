@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Client } from 'src/app/models/client';
+import { ClientType } from 'src/app/models/clienttype';
 import { ClientService } from 'src/app/services/client.service';
+import { ClientTypeService } from 'src/app/services/clienttype.service';
 
 @Component({
   selector: 'app-client-list',
@@ -11,14 +13,17 @@ import { ClientService } from 'src/app/services/client.service';
 export class ClientListComponent implements OnInit {
 
   client: Client[] = [];
+  clientTypes: ClientType[] = null;
   form: FormGroup;
   
   constructor(
     private clientService: ClientService,
+    private clientTypeService: ClientTypeService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.loadClient(50);
+    this.loadClientType();
 
     this.form = this.formBuilder.group({
       take: [50]
@@ -39,6 +44,18 @@ export class ClientListComponent implements OnInit {
               console.error(`Unexpected error. Error message: ${error.message}`)
           }
       })
+  }
+
+  private loadClientType() {
+    this.clientTypeService.getAll()
+      .subscribe({
+        next: (response: ClientType[]) => {
+            this.clientTypes = response;
+        },
+        error: (error: Error) => {
+            console.error(`Unexpected error. Error message: ${error.message}`)
+        }
+    });
   }
 
 }

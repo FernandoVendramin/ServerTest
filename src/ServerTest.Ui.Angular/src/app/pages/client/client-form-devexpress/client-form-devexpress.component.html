@@ -1,13 +1,17 @@
 <h1 class="pt-5">Cadastro de Clientes (DevExpress)</h1>
-<h3 class="pt-3">Dados Principais</h3>
 
-<form (submit)="onSubmit()">
+<form>
   <dx-form id="form"
     [formData]="client"
     [alignItemLabels]="true"
     labelLocation="top"
     class="pt-3">
     
+    
+    <dxi-item itemType="group" [colCount]="12" class="long-title">
+      <h3 class="pt-3">Dados Principais</h3>
+    </dxi-item>
+
     <dxi-item itemType="group" cssClass="first-group" [colCount]="12">
       <dxi-item itemType="group" [colSpan]="6">
           <dxi-item dataField="socialReason" [label]="{text: 'Razão Social'}">
@@ -46,75 +50,136 @@
     </dxi-item>
 
     <dxi-item itemType="group" [colCount]="12">
-      <h3 class="pt-5">Endereços</h3>
-      <dx-data-grid
-          id="gridContainer"
-          [dataSource]="client?.addresses"
-          [showBorders]="true"
-          (onRowInserted)="onRowInsertedAddress($event)"
-          (onRowUpdated)="onRowUpdatedAddress($event)"
-          (onRowRemoved)="onRowRemovedAddress($event)">
-
-          <dxo-group-panel [visible]="true"></dxo-group-panel>
-          <dxo-editing 
-            mode="popup"
-            [allowUpdating]="true"
-            [allowDeleting]="true"
-            [allowAdding]="true">
-            <dxo-popup
-                  title="Endereço"
-                  [showTitle]="true"
-                  [width]="700"
-                  [height]="525">
-              </dxo-popup>
-          </dxo-editing>
-
-          <dxi-column dataField="address" caption="Endereço">
-            <dxi-validation-rule type="required" message="Endereço é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-          <dxi-column dataField="number" caption="Número">
-            <dxi-validation-rule type="required" message="Número é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-          <dxi-column dataField="district" caption="Bairro">
-            <dxi-validation-rule type="required" message="Bairro é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-          <dxi-column dataField="city" caption="Cidade">
-            <dxi-validation-rule type="required" message="Cidade é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-          <dxi-column dataField="state" caption="Estado">
-            <dxi-validation-rule type="required" message="Estado é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-          <dxi-column dataField="postalCode" caption="CEP">
-            <dxi-validation-rule type="required" message="CEP é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-          <dxi-column dataField="country" caption="País">
-            <dxi-validation-rule type="required" message="País é obrigatório"></dxi-validation-rule>
-          </dxi-column>
-      </dx-data-grid>
+      <h3 class="pt-3">Dados Complementares</h3>
     </dxi-item>
-
+    
     <dxi-item itemType="group" [colCount]="12">
-      <h3 class="pt-5">Telefones</h3>
-      <div class="form-group row">
-        <div class="col-sm-6">
+      <dx-tab-panel
+        #tabPanel
+        [selectedIndex]="0"
+        [loop]="false"
+        [animationEnabled]="true"
+        [swipeEnabled]="true">
+        <dxi-item title="Endereços">
           <dx-data-grid
             id="gridContainer"
-            [dataSource]="client?.phones"
-            [showBorders]="true">
+            [dataSource]="client?.addresses"
+            [showBorders]="true"
+            (onRowInserted)="onRowInsertedAddress($event)"
+            (onRowUpdated)="onRowUpdatedAddress($event)"
+            (onRowRemoved)="onRowRemovedAddress($event)">
 
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
             <dxo-editing 
-              mode="row"
+              mode="popup"
               [allowUpdating]="true"
               [allowDeleting]="true"
               [allowAdding]="true">
+              <dxo-popup
+                    title="Endereço"
+                    [showTitle]="true"
+                    [width]="700"
+                    [height]="525">
+                </dxo-popup>
             </dxo-editing>
+
+            <dxi-column dataField="address" caption="Endereço">
+              <dxi-validation-rule type="required" message="Endereço é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="number" caption="Número">
+              <dxi-validation-rule type="required" message="Número é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="district" caption="Bairro">
+              <dxi-validation-rule type="required" message="Bairro é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="city" caption="Cidade">
+              <dxi-validation-rule type="required" message="Cidade é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="state" caption="Estado">
+              <dxi-validation-rule type="required" message="Estado é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="postalCode" caption="CEP">
+              <dxi-validation-rule type="required" message="CEP é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="country" caption="País">
+              <dxi-validation-rule type="required" message="País é obrigatório"></dxi-validation-rule>
+            </dxi-column>
+          </dx-data-grid>
+        </dxi-item>
+                
+        <dxi-item title="Telefones">
+
+          <dxi-item class="pb-3">
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Hello, World!</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ngbAutofocus class="btn btn-outline-dark">Save</button>
+              </div>
+            </ng-template>
+            
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-md btn-outline-primary" (click)="openPhoneModal(content)"><fa-icon [icon]="faPlus"></fa-icon></button>
+            </div>
+          </dxi-item>
+
+          <dx-data-grid
+            id="gridContainer"
+            [dataSource]="client?.phones"
+            (onEditingStart)="onEditPhone($event)"
+            (onRowInserting)="onInsertPhone($event)"
+            [showBorders]="true">
+
+            <dxo-editing 
+              mode="popup"
+              [allowUpdating]="true"
+              [allowDeleting]="true"
+              [allowAdding]="false">
+              <dxo-popup
+                title="Custom Title 2 - Telefone"
+                [showTitle]="true"
+                [width]="700"
+                [height]="300"
+                contentTemplate="phoneTemplate">
+                <div *dxTemplate="let data of 'phoneTemplate'">
+                  <h3>Custom Content - Telefone</h3>
+                  <label for="phoneNumber" class="control-label required">Número do Telefone</label>
+                  <input type="text" class="form-control" id="phoneNumberInput" formControlName="phoneNumber">
+                </div>
+              </dxo-popup>             
+            </dxo-editing>
+
+            <!-- <dxo-editing 
+              mode="popup"
+              [allowUpdating]="true"
+              [allowDeleting]="true"
+              [allowAdding]="true">
+              <dxo-popup
+                title="Custom Title 1 - Telefone"
+                [showTitle]="true"
+                [width]="700"
+                [height]="300">
+              </dxo-popup>
+              <dxo-form>
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                    <dxi-item dataField="phoneNumber"></dxi-item>
+                </dxi-item>
+              </dxo-form>
+            </dxo-editing> -->
 
             <dxi-column dataField="phoneNumber" caption="Número do Telefone">
               <dxi-validation-rule type="required" message="Número do Telefone é obrigatório"></dxi-validation-rule>
             </dxi-column>
           </dx-data-grid>
-        </div>
-      </div>
+        </dxi-item>
+      </dx-tab-panel>
     </dxi-item>
   </dx-form>
 
@@ -126,7 +191,8 @@
     <dx-button 
         id="button"
         text="Salvar"
-        type="success"  
+        type="success"
+        (click)="onSubmit()"
         [useSubmitBehavior]="true">
     </dx-button>
   </div>
